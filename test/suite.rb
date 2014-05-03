@@ -29,4 +29,9 @@ scope do
     post "/check", {content: "Yeah that was cool", ip: "1.2.3.4"}
     assert response_json["is_spam"]
   end
+
+  test "it only responds to POSTs" do
+    get "/check", {content: "Yeah that was cool", ip: "127.0.0.1"}
+    assert_equal 404, last_response.status
+  end
 end
